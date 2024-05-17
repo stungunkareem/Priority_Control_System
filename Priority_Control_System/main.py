@@ -247,20 +247,16 @@ class AppDemo(QMainWindow):
         self.graph_data[-1] = psutil.virtual_memory().percent
         self.graph_curve.setData(self.graph_data)
 
-    # Clear any existing text items on the graph
         for item in self.graph_widget.items():
             if isinstance(item, pg.TextItem):
                 self.graph_widget.removeItem(item)
 
-    # Get the current point value
         current_value = self.graph_data[-1]
 
-    # Add the current point value as a text item on the graph
         text_item = pg.TextItem(text=f'Current Value: {current_value:.2f}', color=(0, 0, 0), anchor=(1, 1))
         text_item.setPos(len(self.graph_data) - 1, current_value)
         self.graph_widget.addItem(text_item)
 
-    # Start a timer to remove the text item after a short duration (e.g., 2 seconds)
         QTimer.singleShot(2000, lambda: self.graph_widget.removeItem(text_item))
 
 
